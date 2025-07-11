@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 public static class BD
 {
-    private static string _connectionString = @"Server=localhost; DataBase = InfoUsuario; Integrated Security=True; TrustServerCertificate=True;";
+    private static string _connectionString = @"Server=PC-AUGUSTO\SQLEXPRESS01; DataBase=InfoUsuario; Integrated Security=True; TrustServerCertificate=True;";
     public static string IniciarSesion(string Nombre, string Contraseña)
     {
         string Equipo;
@@ -24,23 +24,36 @@ public static class BD
         }
         return ListaIntegrantes;
     }
-  public static void Registrarse(string Nombre, string Contraseña, string Equipo, string AmorPlatonico, string YoutuberFav, string ComidaFav, string MarcaDeRopaFav, string EquipoDeFutbolFav, string Foto)
+public static bool Registrarse(string Nombre, string Contraseña, string Equipo, string AmorPlatonico, string YoutuberFav, string ComidaFav, string MarcaDeRopaFav, string EquipoDeFutbolFav, string Foto)
 {
-    using (SqlConnection connection = new SqlConnection(_connectionString))
-    {
-        string query = "INSERT INTO Integrante (Nombre, Contraseña, AmorPlatonico, YoutuberFav, ComidaFav, MarcaDeRopaFav, EquipoDeFutbolFav, Equipo, Foto) VALUES (@PNombre, @PContraseña, @PAmorPlatonico, @PYoutuberFav, @PComidaFav, @PMarcaDeRopaFav, @PEquipoDeFutbolFav, @PEquipo, @PFoto)";
-        connection.Execute(query, new
+        using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            PNombre = Nombre,
-            PContraseña = Contraseña,
-            PAmorPlatonico = AmorPlatonico,
-            PYoutuberFav = YoutuberFav,
-            PComidaFav = ComidaFav,
-            PMarcaDeRopaFav = MarcaDeRopaFav,
-            PEquipoDeFutbolFav = EquipoDeFutbolFav,
-            PEquipo = Equipo,
-            PFoto = Foto
-        });
+            bool SeRegistro = true;
+            string checkQuery = "SELECT COUNT(*) FROM Integrante WHERE Nombre = @PNombre";
+            int count = connection.QueryFirstOrDefault<int>(checkQuery, new { PNombre = Nombre });
+            if (count > 0)
+            {
+                SeRegistro = false;
+                return SeRegistro;
+            }
+            else
+            {
+                SeRegistro = true;
+            }
+            string query = "INSERT INTO Integrante (Nombre, Contraseña, AmorPlatonico, YoutuberFav, ComidaFav, MarcaDeRopaFav, EquipoDeFutbolFav, Equipo, Foto) VALUES (@PNombre, @PContraseña, @PAmorPlatonico, @PYoutuberFav, @PComidaFav, @PMarcaDeRopaFav, @PEquipoDeFutbolFav, @PEquipo, @PFoto)";
+            connection.Execute(query, new
+            {
+                PNombre = Nombre,
+                PContraseña = Contraseña,
+                PAmorPlatonico = AmorPlatonico,
+                PYoutuberFav = YoutuberFav,
+                PComidaFav = ComidaFav,
+                PMarcaDeRopaFav = MarcaDeRopaFav,
+                PEquipoDeFutbolFav = EquipoDeFutbolFav,
+                PEquipo = Equipo,
+                PFoto = Foto
+            });
+        return SeRegistro;
+        }
     }
-}
 }

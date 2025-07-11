@@ -4,25 +4,30 @@
 
 @if (ViewBag.Integrantes != null)
 {
-    <ul>
-    <h2>Integrantes del equipo</h2>
-@for (int i = 0; i <  ViewBag.Integrantes.Count; i++)
+    <div class="integrantes">
+        <h2>Integrantes del equipo</h2>
+        <div class="integrantes-list">
+            @for (int i = 0; i < ViewBag.Integrantes.Count; i++)
             {
-            string Foto1 = @ViewBag.Integrantes[i].Foto;
-            <img src="~/Imagenes/@Foto1" alt="Foto" />
-            <h3>Nombre: @ViewBag.Integrantes[i].Nombre</h3>
-            <h3>Amor Platónico: @ViewBag.Integrantes[i].AmorPlatonico</h3>
-            <h3>Youtuber: @ViewBag.Integrantes[i].YoutuberFav</h3>
-            <h3>Marca de Ropa: @ViewBag.Integrantes[i].MarcaDeRopaFav</h3>
-            <h3>Comida: @ViewBag.Integrantes[i].ComidaFav</h3>
-            <h3>Equipo de Fútbol: @ViewBag.Integrantes[i].EquipoDeFutbolFav</h3>        
+                <div class="integrante-info">
+                    <img src="~/Imagenes/@ViewBag.Integrantes[i].Foto" alt="Foto" class="integrante-foto" />
+                    <div class="integrante-info">
+                        <h3 class="integrante-nombre">Nombre: @ViewBag.Integrantes[i].Nombre</h3>
+                        <p>Amor Platónico: @ViewBag.Integrantes[i].AmorPlatonico</p>
+                        <p>Youtuber: @ViewBag.Integrantes[i].YoutuberFav</p>
+                        <p>Marca de Ropa: @ViewBag.Integrantes[i].MarcaDeRopaFav</p>
+                        <p>Comida: @ViewBag.Integrantes[i].ComidaFav</p>
+                        <p>Equipo de Fútbol: @ViewBag.Integrantes[i].EquipoDeFutbolFav</p>
+                    </div>
+                </div>
             }
-    </ul>   
+        </div>
+    </div>
 }
 else
 {
     <p>No hay integrantes para mostrar.</p>
 }
-<form asp-action="Index" method="get">
-    <button type="submit">Volver al inicio</button>
+<form asp-action="Index" method="get" class="volver-form">
+    <button type="submit" class="volver-btn">Volver al inicio</button>
 </form>

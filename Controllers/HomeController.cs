@@ -49,7 +49,7 @@ public class HomeController : Controller
         if (FotoFile != null && FotoFile.Length > 0)
         {
             string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Imagenes");
-            Directory.CreateDirectory(carpeta); // por si no existe
+            Directory.CreateDirectory(carpeta); 
 
             nombreFoto = Path.GetFileName(FotoFile.FileName);
             string ruta = Path.Combine(carpeta, nombreFoto);
@@ -59,11 +59,21 @@ public class HomeController : Controller
                 FotoFile.CopyTo(stream);
             }
         }
+      bool SeRegistro = BD.Registrarse(Nombre, Contraseña, Equipo, AmorPlatonico, YoutuberFav, ComidaFav, MarcaDeRopaFav, EquipoDeFutbolFav, nombreFoto);
+        ViewBag.Integrantes = BD.DevolverIntegrantes(Equipo);
+        if (SeRegistro)
+        {
+                    return View("MostarInfo");
 
-        // Llama al método BD.Registrarse con todos los parámetros, incluida la foto
-        BD.Registrarse(Nombre, Contraseña, Equipo, AmorPlatonico, YoutuberFav, ComidaFav, MarcaDeRopaFav, EquipoDeFutbolFav, nombreFoto);
- ViewBag.Integrantes = BD.DevolverIntegrantes(Equipo);
-        return View("MostarInfo");
+        }
+        else
+        {
+                  ViewBag.SeRegistro = SeRegistro;
+
+            ViewBag.Mensaje = "El nombre de usuario ya existe";
+            return View("Registrarse");
+
+        }
     }
     public IActionResult DRegistrarse()
     {

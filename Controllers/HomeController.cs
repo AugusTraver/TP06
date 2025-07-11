@@ -21,48 +21,50 @@ public class HomeController : Controller
     public IActionResult IniciarSesion(string Nombre, string Contraseña)
     {
         if (BD.IniciarSesion(Nombre, Contraseña) != null)
-         {
+        {
             HttpContext.Session.SetString("Equipo", BD.IniciarSesion(Nombre, Contraseña));
             string equipo = HttpContext.Session.GetString("Equipo");
             ViewBag.Integrantes = BD.DevolverIntegrantes(equipo);
             return View("MostarInfo");
         }
-        else {
+        else
+        {
             return View("Index");
         }
 
     }
-   public IActionResult Registrarse(
-    string Nombre,
-    string Contraseña,
-    string AmorPlatonico,
-    string YoutuberFav,
-    string ComidaFav,
-    string MarcaDeRopaFav,
-    string EquipoDeFutbolFav,
-    string Equipo,
-    IFormFile FotoFile)
-{
-    string nombreFoto = null;
-
-    if (FotoFile != null && FotoFile.Length > 0)
+    public IActionResult Registrarse(
+     string Nombre,
+     string Contraseña,
+     string AmorPlatonico,
+     string YoutuberFav,
+     string ComidaFav,
+     string MarcaDeRopaFav,
+     string EquipoDeFutbolFav,
+     string Equipo,
+     IFormFile FotoFile)
     {
-        string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Imagenes");
-        Directory.CreateDirectory(carpeta); // por si no existe
+        string nombreFoto = null;
 
-        nombreFoto = Path.GetFileName(FotoFile.FileName);
-        string ruta = Path.Combine(carpeta, nombreFoto);
-
-        using (var stream = new FileStream(ruta, FileMode.Create))
+        if (FotoFile != null && FotoFile.Length > 0)
         {
-            FotoFile.CopyTo(stream);
+            string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Imagenes");
+            Directory.CreateDirectory(carpeta); // por si no existe
+
+            nombreFoto = Path.GetFileName(FotoFile.FileName);
+            string ruta = Path.Combine(carpeta, nombreFoto);
+
+            using (var stream = new FileStream(ruta, FileMode.Create))
+            {
+                FotoFile.CopyTo(stream);
+            }
         }
+
+        // Llama al método BD.Registrarse con todos los parámetros, incluida la foto
+        BD.Registrarse(Nombre, Contraseña, Equipo, AmorPlatonico, YoutuberFav, ComidaFav, MarcaDeRopaFav, EquipoDeFutbolFav, nombreFoto);
+ ViewBag.Integrantes = BD.DevolverIntegrantes(Equipo);
+        return View("MostarInfo");
     }
-
-    // Llama al método BD.Registrarse con todos los parámetros, incluida la foto
-    BD.Registrarse(Nombre, Contraseña, Equipo, AmorPlatonico, YoutuberFav, ComidaFav, MarcaDeRopaFav, EquipoDeFutbolFav, nombreFoto);
-
-return RedirectToAction("IniciarSesion", new { nombre = Nombre, contraseña = Contraseña });}
     public IActionResult DRegistrarse()
     {
         return View("Registrarse");

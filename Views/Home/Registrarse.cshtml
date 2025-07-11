@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Registro de Integrante";
+}
+
+<h2>Registro de Integrante</h2>
+
+<form asp-action="Registrarse" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="Nombre">Nombre:</label>
+        <input type="text" name="Nombre" id="Nombre" required />
+    </div>
+
+    <div>
+        <label for="Contraseña">Contraseña:</label>
+        <input type="password" name="Contraseña" id="Contraseña" required />
+    </div>
+
+    <div>
+        <label for="AmorPlatonico">Amor Platónico:</label>
+        <input type="text" name="AmorPlatonico" id="AmorPlatonico" />
+    </div>
+
+    <div>
+        <label for="YoutuberFav">Youtuber Favorito:</label>
+        <input type="text" name="YoutuberFav" id="YoutuberFav" />
+    </div>
+
+    <div>
+        <label for="MarcaDeRopaFav">Marca de Ropa Favorita:</label>
+        <input type="text" name="MarcaDeRopaFav" id="MarcaDeRopaFav" />
+    </div>
+
+    <div>
+        <label for="ComidaFav">Comida Favorita:</label>
+        <input type="text" name="ComidaFav" id="ComidaFav" />
+    </div>
+
+    <div>
+        <label for="EquipoDeFutbolFav">Equipo de Fútbol Favorito:</label>
+        <input type="text" name="EquipoDeFutbolFav" id="EquipoDeFutbolFav" />
+    </div>
+
+    <div>
+        <label for="Equipo">Equipo:</label>
+        <select name="Equipo" id="Equipo" required>
+            <option value="" disabled selected>-- Seleccione un equipo --</option>
+            <option value="Caricaturas">Caricaturas</option>
+            <option value="LBM">LBM</option>
+            <option value="Streamers">Streamers</option>
+            <option value="Futbolistas">Futbolistas</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="FotoFile">Foto:</label>
+        <input type="file" name="FotoFile" id="FotoFile" />
+    </div>
+
+    <br />
+
+    <button type="submit">Registrarse</button>
+</form>

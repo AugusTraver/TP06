@@ -11,13 +11,13 @@ public class Integrante
     [JsonProperty]
     public string AmorPlatonico { private set; get; }
     [JsonProperty]
-    public string Youtuber { private set; get; }
+    public string YoutuberFav { private set; get; }
     [JsonProperty]
-    public string MarcaDeRopa { private set; get; }
+    public string MarcaDeRopaFav { private set; get; }
     [JsonProperty]
-    public string Comida { private set; get; }
+    public string ComidaFav { private set; get; }
     [JsonProperty]
-    public string EquipoDeFutbol { private set; get; }
+    public string EquipoDeFutbolFav { private set; get; }
     [JsonProperty]
     public string Foto { private set; get; }
     [JsonProperty]

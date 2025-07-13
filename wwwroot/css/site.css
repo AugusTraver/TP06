@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-.inicio, .registro-form, .integrantes, .volver-form {
+.inicio, .registro-form, .integrantes {
     max-width: 450px;
     margin: 60px auto;
     padding: 20px 30px;
@@ -115,8 +115,25 @@ body {
     color: #333;
     margin-bottom: 5px;
 }
-
-.volver-form {
-    text-align: center;
-    margin-top: 40px;
+.volver-btn {
+    position: fixed;
+    bottom: 2%;
+    left: 2%;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 32px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+    z-index: 100;
 }
+
+.volver-btn:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 16px rgba(0,123,255,0.15);
+}
+
+

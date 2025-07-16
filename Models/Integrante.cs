@@ -1,6 +1,7 @@
 namespace Tp06.Models;
 using Newtonsoft.Json;
-
+using System.Security.Cryptography;
+using System.Text;
 public class Integrante
 {
     public int Id { private set; get; }
@@ -26,4 +27,20 @@ public class Integrante
     {
 
     }
+
+
+public static string HashearContraseña(string contraseña)
+{
+    using (SHA256 sha256 = SHA256.Create())
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(contraseña);
+        byte[] hash = sha256.ComputeHash(bytes);
+        StringBuilder sb = new StringBuilder();
+
+        foreach (byte b in hash)
+            sb.Append(b.ToString("x2")); 
+
+        return sb.ToString();
+    }
+}
 }

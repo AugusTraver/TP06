@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 public static class BD
 {
-    private static string _connectionString = @"Server=PC-AUGUSTO\SQLEXPRESS01; DataBase=InfoUsuario; Integrated Security=True; TrustServerCertificate=True;";
+    private static string _connectionString = @"Server=localhost; DataBase=InfoUsuario; Integrated Security=True; TrustServerCertificate=True;";
     public static string IniciarSesion(string Nombre, string Contraseña)
     {
         string Equipo;
